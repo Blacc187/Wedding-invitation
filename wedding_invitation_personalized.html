@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godspromise & Emomotimi - Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --maroon: #6B1D2A;
+            --maroon-deep: #4A0E1A;
+            --red: #8B2020;
+            --red-light: #A52A2A;
+            --gold: #C9A84C;
+            --gold-light: #E0C068;
+            --gold-pale: #F5E6B8;
+            --gold-shimmer: #D4AF37;
+            --white: #FFFFFF;
+            --cream: #FDF8F0;
+            --ivory: #FFFDF7;
+            --text-dark: #2C2C2C;
+            --text-muted: #6B6B6B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+        /* ===== PRELOADER ===== */
+        .preloader {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--maroon-deep);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s, visibility 0.8s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-ring {
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(201, 168, 76, 0.2);
+            border-top: 2px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        .preloader-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: var(--gold);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* ===== MUSIC TOGGLE ===== */
+        .music-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(107, 29, 42, 0.85);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-toggle:hover {
+            background: var(--maroon);
+            transform: scale(1.1);
+        }
+
+        .music-toggle .bars {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 16px;
+        }
+
+        .music-toggle .bar {
+            width: 3px;
+            background: var(--gold);
+            border-radius: 1px;
+        }
+
+        .music-toggle.playing .bar:nth-child(1) { animation: bar1 0.6s ease-in-out infinite alternate; }
+        .music-toggle.playing .bar:nth-child(2) { animation: bar2 0.7s ease-in-out infinite alternate; }
+        .music-toggle.playing .bar:nth-child(3) { animation: bar3 0.5s ease-in-out infinite alternate; }
+        .music-toggle.playing .bar:nth-child(4) { animation: bar4 0.8s ease-in-out infinite alternate; }
+
+        @keyframes bar1 { from { height: 4px; } to { height: 16px; } }
+        @keyframes bar2 { from { height: 8px; } to { height: 12px; } }
+        @keyframes bar3 { from { height: 3px; } to { height: 14px; } }
+        @keyframes bar4 { from { height: 6px; } to { height: 10px; } }
+
+        /* ===== NAV DOTS ===== */
+        .nav-dots {
+            position: fixed;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-dot.active {
+            background: var(--gold);
+            transform: scale(1.4);
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        .nav-dot .tooltip {
+            position: absolute;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--maroon);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-dot:hover .tooltip { opacity: 1; }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(160deg, var(--maroon-deep) 0%, var(--maroon) 40%, var(--red) 70%, var(--maroon-deep) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 25% 30%, rgba(201, 168, 76, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 75% 70%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-ornament-top, .hero-ornament-bottom {
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            opacity: 0.15;
+        }
+
+        .hero-ornament-top {
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 1px solid var(--gold);
+            border-left: 1px solid var(--gold);
+            border-right: 1px solid var(--gold);
+            border-radius: 100px 100px 0 0;
+        }
+
+        .hero-ornament-bottom {
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+            border-top: 1px solid var(--gold);
+            border-left: 1px solid var(--gold);
+            border-right: 1px solid var(--gold);
+            border-radius: 100px 100px 0 0;
+        }
+
+        /* Particles */
+        .particles { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; overflow: hidden; }
+
+        .particle {
+            position: absolute;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
+
+        .particle.sparkle {
+            background: none;
+            box-shadow: 0 0 6px 2px rgba(212, 175, 55, 0.6);
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(100vh) scale(0) rotate(0deg); }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1) rotate(360deg); }
+        }
+
+        /* Firework bursts */
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+        }
+
+        .hero-date-top {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+            font-size: 0.8rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInDown 1s 0.3s forwards;
+        }
+
+        .hero-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.75rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gold-pale);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInDown 1s 0.5s forwards;
+        }
+
+        .hero-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.8rem, 9vw, 6rem);
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: fadeInUp 1.2s 0.7s forwards;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-ampersand {
+            display: block;
+            font-size: 0.5em;
+            color: var(--gold);
+            margin: 0.15em 0;
+            text-shadow: 0 0 20px rgba(201, 168, 76, 0.5);
+        }
+
+        .hero-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 1.5rem 0;
+            opacity: 0;
+            animation: fadeIn 1s 1.1s forwards;
+        }
+
+        .hero-divider .line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .hero-divider .diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+        }
+
+        .hero-venue-line {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold-pale);
+            opacity: 0;
+            animation: fadeInUp 1s 1.3s forwards;
+        }
+
+        .hero-location {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s 1.5s forwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s 2.5s forwards;
+        }
+
+        .scroll-indicator a {
+            color: var(--gold);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scroll-mouse {
+            width: 22px;
+            height: 34px;
+            border: 1.5px solid var(--gold);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-mouse::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: scrollDown 1.5s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% { opacity: 1; top: 6px; }
+            100% { opacity: 0; top: 20px; }
+        }
+
+        /* ===== SECTIONS COMMON ===== */
+        section { padding: 5rem 1.5rem; position: relative; }
+
+        .section-container { max-width: 800px; margin: 0 auto; }
+
+        .section-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--maroon);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 3rem;
+        }
+
+        .section-divider .line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .section-divider .diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===== OPENING / BISMILLAH ===== */
+        .opening { background: var(--white); text-align: center; }
+
+        .opening-ornament {
+            width: 120px;
+            margin: 0 auto 2rem;
+            opacity: 0.3;
+        }
+
+        .opening-ornament svg { width: 100%; }
+
+        .opening-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .opening-quote .highlight {
+            color: var(--maroon);
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .opening-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--maroon);
+            margin: 2rem 0 1rem;
+        }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-section {
+            background: linear-gradient(160deg, var(--maroon-deep) 0%, var(--maroon) 50%, var(--red) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .countdown-section .section-label { color: var(--gold-light); }
+        .countdown-section .section-title { color: var(--white); }
+        .countdown-section .section-divider .line { background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1.5rem, 5vw, 4rem);
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-number-wrap {
+            width: clamp(70px, 15vw, 110px);
+            height: clamp(70px, 15vw, 110px);
+            border: 1px solid rgba(201, 168, 76, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+        }
+
+        .countdown-number-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid rgba(201, 168, 76, 0.15);
+        }
+
+        .countdown-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-top: 1rem;
+        }
+
+        .countdown-message {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--gold-pale);
+            margin-top: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== COUPLE SECTION ===== */
+        .couple-section { background: var(--ivory); text-align: center; }
+
+        .couple-intro {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+            max-width: 550px;
+            margin: 0 auto 3rem;
+        }
+
+        .couple-cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .couple-card {
+            text-align: center;
+            max-width: 260px;
+            padding: 2rem 1.5rem;
+        }
+
+        .couple-card .photo-frame {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .couple-card .photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+        }
+
+        .couple-card .initial {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--maroon);
+        }
+
+        .couple-card h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: var(--maroon);
+            margin-bottom: 0.2rem;
+        }
+
+        .couple-card .role {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .couple-card .quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .couple-ampersand-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .couple-ampersand {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+        }
+
+        .couple-heart-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--gold), transparent);
+        }
+
+        /* ===== LOVE STORY TIMELINE ===== */
+        .story-section { background: var(--white); text-align: center; }
+
+        .timeline {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, var(--gold), var(--gold), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) { flex-direction: row; }
+        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+
+        .timeline-content {
+            width: 45%;
+            padding: 1.5rem;
+            background: var(--cream);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content { margin-right: auto; text-align: right; }
+        .timeline-item:nth-child(even) .timeline-content { margin-left: auto; text-align: left; }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            background: var(--gold);
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 1px var(--gold);
+            z-index: 2;
+        }
+
+        .timeline-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-date {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: var(--maroon);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== EVENT DETAILS ===== */
+        .event-section { background: var(--ivory); text-align: center; }
+
+        .event-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .event-card {
+            background: var(--white);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            padding: 3rem 2rem;
+            max-width: 340px;
+            width: 100%;
+            position: relative;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(107, 29, 42, 0.08);
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--maroon), var(--gold), var(--maroon));
+        }
+
+        .event-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-card h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--maroon);
+            margin-bottom: 1.5rem;
+        }
+
+        .event-detail-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .event-detail-row strong {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .event-detail-row .icon {
+            font-size: 0.9rem;
+            width: 20px;
+        }
+
+        .event-time-badge {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.6rem 2rem;
+            border: 1px solid var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            color: var(--maroon);
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        .event-map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--gold);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+            padding-bottom: 2px;
+            transition: color 0.3s;
+        }
+
+        .event-map-link:hover { color: var(--maroon); }
+
+        /* ===== COLOR PALETTE ===== */
+        .colors-section { background: var(--white); text-align: center; }
+
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .swatch-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+        }
+
+        .swatch-circle:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+        }
+
+        .swatch-circle::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px dashed rgba(201, 168, 76, 0.3);
+        }
+
+        .color-swatch span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery-section { background: var(--ivory); text-align: center; }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--cream);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(107, 29, 42, 0.1);
+        }
+
+        .gallery-placeholder {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-note {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-top: 2rem;
+        }
+
+        /* ===== GUEST BOOK ===== */
+        .guestbook-section { background: var(--white); text-align: center; }
+
+        .guestbook-form {
+            max-width: 500px;
+            margin: 0 auto 3rem;
+        }
+
+        .guestbook-form .form-row {
+            margin-bottom: 1.2rem;
+        }
+
+        .guestbook-form label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            text-align: left;
+        }
+
+        .guestbook-form input,
+        .guestbook-form textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            background: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .guestbook-form input:focus,
+        .guestbook-form textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .guestbook-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .guestbook-submit {
+            display: inline-block;
+            padding: 0.8rem 2.5rem;
+            background: var(--maroon);
+            color: var(--white);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .guestbook-submit:hover {
+            background: var(--red);
+            transform: translateY(-2px);
+        }
+
+        .guestbook-messages {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .guestbook-msg {
+            background: var(--cream);
+            border-left: 3px solid var(--gold);
+            padding: 1.2rem 1.5rem;
+            text-align: left;
+        }
+
+        .guestbook-msg .msg-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--maroon);
+            margin-bottom: 0.3rem;
+        }
+
+        .guestbook-msg .msg-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== RSVP SECTION ===== */
+        .rsvp-section {
+            background: linear-gradient(160deg, var(--maroon-deep) 0%, var(--maroon) 50%, var(--red) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rsvp-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(201, 168, 76, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .rsvp-section .section-label { color: var(--gold-light); }
+        .rsvp-section .section-title { color: var(--white); }
+        .rsvp-section .section-divider .line { background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
+
+        .rsvp-form {
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-group {
+            margin-bottom: 1.3rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.85rem 1.1rem;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            color: var(--white);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 15px rgba(201, 168, 76, 0.1);
+        }
+
+        .form-group select option {
+            background: var(--maroon);
+            color: var(--white);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .attendance-options {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .attendance-option { flex: 1; }
+
+        .attendance-option input[type="radio"] { display: none; }
+
+        .attendance-option label {
+            display: block;
+            text-align: center;
+            padding: 0.85rem 0.5rem;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+        }
+
+        .attendance-option input[type="radio"]:checked + label {
+            background: var(--gold);
+            color: var(--maroon-deep);
+            border-color: var(--gold);
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--gold);
+            color: var(--maroon-deep);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .form-success.show { display: block; animation: fadeInUp 0.6s forwards; }
+
+        .form-success .checkmark {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+
+        .form-success h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .form-success p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--gold-pale);
+            line-height: 1.6;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1A0810;
+            text-align: center;
+            padding: 4rem 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .footer-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-date {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+            font-size: 0.8rem;
+            letter-spacing: 6px;
+            color: var(--gold-pale);
+            margin-bottom: 2rem;
+        }
+
+        .footer-heart {
+            color: var(--red-light);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .footer-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 2rem;
+        }
+
+        .footer-made {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-dots { display: none; }
+
+            .couple-cards { flex-direction: column; gap: 1rem; }
+
+            .couple-ampersand-wrap { flex-direction: row; }
+            .couple-ampersand { font-size: 2.5rem; }
+            .couple-heart-line { width: 40px; height: 1px; }
+
+            .timeline::before { left: 20px; }
+            .timeline-item,
+            .timeline-item:nth-child(even) { flex-direction: row; }
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: auto;
+                text-align: left;
+            }
+            .timeline-dot { left: 20px; }
+
+            .event-cards { flex-direction: column; align-items: center; }
+
+            .attendance-options { flex-direction: column; }
+
+            section { padding: 3.5rem 1.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .countdown-grid { gap: 1rem; }
+            .countdown-number-wrap { width: 65px; height: 65px; }
+            .color-palette { gap: 1.5rem; }
+            .swatch-circle { width: 60px; height: 60px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-ring"></div>
+        <div class="preloader-text">G & E</div>
+    </div>
+
+    <!-- Music Toggle -->
+    <button class="music-toggle" id="musicToggle" title="Toggle Music">
+        <div class="bars">
+            <div class="bar" style="height:4px"></div>
+            <div class="bar" style="height:8px"></div>
+            <div class="bar" style="height:3px"></div>
+            <div class="bar" style="height:6px"></div>
+        </div>
+    </button>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-dots" id="navDots">
+        <div class="nav-dot active" data-section="hero"><span class="tooltip">Home</span></div>
+        <div class="nav-dot" data-section="opening"><span class="tooltip">Welcome</span></div>
+        <div class="nav-dot" data-section="countdown"><span class="tooltip">Countdown</span></div>
+        <div class="nav-dot" data-section="couple"><span class="tooltip">The Couple</span></div>
+        <div class="nav-dot" data-section="story"><span class="tooltip">Our Story</span></div>
+        <div class="nav-dot" data-section="event"><span class="tooltip">Details</span></div>
+        <div class="nav-dot" data-section="colors"><span class="tooltip">Colours</span></div>
+        <div class="nav-dot" data-section="gallery"><span class="tooltip">Gallery</span></div>
+        <div class="nav-dot" data-section="guestbook"><span class="tooltip">Guestbook</span></div>
+        <div class="nav-dot" data-section="rsvp"><span class="tooltip">RSVP</span></div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-ornament-top"></div>
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <p class="hero-date-top">18 . 08 . 2026</p>
+            <p class="hero-subtitle">We're getting married</p>
+            <h1 class="hero-names">
+                Godspromise
+                <span class="hero-ampersand">&</span>
+                Emomotimi
+            </h1>
+            <div class="hero-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <p class="hero-venue-line">Tamara Hall, Yenagoa</p>
+            <p class="hero-location">Bayelsa State, Nigeria</p>
+        </div>
+        <div class="hero-ornament-bottom"></div>
+        <div class="scroll-indicator">
+            <a href="#opening">
+                <div class="scroll-mouse"></div>
+                <span>Scroll</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== OPENING ===== -->
+    <section class="opening" id="opening">
+        <div class="section-container reveal">
+            <p class="section-label">Together with their families</p>
+            <h2 class="section-title">Request the Pleasure</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <p class="opening-quote">
+                request the honour of your presence<br>
+                at the marriage of their beloved children<br><br>
+                <span class="highlight">Godspromise</span> & <span class="highlight">Emomotimi</span><br><br>
+                as they join their hearts and hands<br>
+                in the sacred bond of holy matrimony
+            </p>
+            <div class="opening-names">Two hearts, one love</div>
+        </div>
+    </section>
+
+    <!-- ===== COUNTDOWN ===== -->
+    <section class="countdown-section" id="countdown">
+        <div class="section-container reveal">
+            <p class="section-label">Counting Down</p>
+            <h2 class="section-title">Until We Say "I Do"</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <div class="countdown-grid">
+                <div class="countdown-item">
+                    <div class="countdown-number-wrap">
+                        <span class="countdown-number" id="days">000</span>
+                    </div>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number-wrap">
+                        <span class="countdown-number" id="hours">00</span>
+                    </div>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number-wrap">
+                        <span class="countdown-number" id="minutes">00</span>
+                    </div>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number-wrap">
+                        <span class="countdown-number" id="seconds">00</span>
+                    </div>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            <p class="countdown-message">Every moment brings us closer to forever</p>
+        </div>
+    </section>
+
+    <!-- ===== COUPLE ===== -->
+    <section class="couple-section" id="couple">
+        <div class="section-container reveal">
+            <p class="section-label">The Happy Couple</p>
+            <h2 class="section-title">Meet the Bride & Groom</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <p class="couple-intro">
+                Two souls brought together by destiny, ready to embark on the most
+                beautiful journey of a lifetime. Their love story is a testament to
+                the power of faith, patience, and true love.
+            </p>
+            <div class="couple-cards">
+                <div class="couple-card reveal-left">
+                    <div class="photo-frame">
+                        <span class="initial">G</span>
+                    </div>
+                    <h3>Godspromise</h3>
+                    <p class="role">The Beautiful Bride</p>
+                    <p class="quote">"In you, I found the love I always dreamed of."</p>
+                </div>
+                <div class="couple-ampersand-wrap">
+                    <div class="couple-heart-line"></div>
+                    <div class="couple-ampersand">&</div>
+                    <div class="couple-heart-line"></div>
+                </div>
+                <div class="couple-card reveal-right">
+                    <div class="photo-frame">
+                        <span class="initial">E</span>
+                    </div>
+                    <h3>Emomotimi</h3>
+                    <p class="role">The Handsome Groom</p>
+                    <p class="quote">"You are my today and all of my tomorrows."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LOVE STORY ===== -->
+    <section class="story-section" id="story">
+        <div class="section-container reveal">
+            <p class="section-label">How It All Began</p>
+            <h2 class="section-title">Our Love Story</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item reveal-left">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">&#10084;</div>
+                        <div class="timeline-date">The Beginning</div>
+                        <div class="timeline-title">How We Met</div>
+                        <p class="timeline-text">It was a beautiful day when fate brought us together. A chance encounter that changed our lives forever.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal-right">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">&#127775;</div>
+                        <div class="timeline-date">The Spark</div>
+                        <div class="timeline-title">First Date</div>
+                        <p class="timeline-text">From the very first moment, we knew there was something special between us. The chemistry was undeniable.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal-left">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">&#128150;</div>
+                        <div class="timeline-date">The Journey</div>
+                        <div class="timeline-title">Falling in Love</div>
+                        <p class="timeline-text">Day by day, our love grew stronger. Through every laugh, every tear, every moment shared together.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal-right">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">&#128141;</div>
+                        <div class="timeline-date">The Question</div>
+                        <div class="timeline-title">The Proposal</div>
+                        <p class="timeline-text">With a heart full of love and a ring in hand, the question was popped and the answer was a joyful "Yes!"</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal-left">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">&#127870;</div>
+                        <div class="timeline-date">August 18, 2026</div>
+                        <div class="timeline-title">The Wedding</div>
+                        <p class="timeline-text">The day we become one. The beginning of our forever. Join us as we say "I Do."</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EVENT DETAILS ===== -->
+    <section class="event-section" id="event">
+        <div class="section-container reveal">
+            <p class="section-label">Save the Date</p>
+            <h2 class="section-title">Wedding Details</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <div class="event-cards">
+                <div class="event-card reveal-left">
+                    <div class="event-card-icon">&#9878;</div>
+                    <h3>Wedding Ceremony</h3>
+                    <div class="event-detail-row">
+                        <span class="icon">&#128197;</span>
+                        <span><strong>Date:</strong> Tuesday, August 18, 2026</span>
+                    </div>
+                    <div class="event-detail-row">
+                        <span class="icon">&#128336;</span>
+                        <span><strong>Time:</strong> 10:00 AM</span>
+                    </div>
+                    <div class="event-detail-row">
+                        <span class="icon">&#127970;</span>
+                        <span><strong>Venue:</strong> Tamara Hall</span>
+                    </div>
+                    <div class="event-detail-row">
+                        <span class="icon">&#128205;</span>
+                        <span>Otiotio Road, Yenagoa</span>
+                    </div>
+                    <div class="event-detail-row">
+                        <span class="icon"></span>
+                        <span>Bayelsa State, Nigeria</span>
+                    </div>
+                    <div class="event-time-badge">10:00 AM Prompt</div>
+                    <a href="https://maps.google.com/?q=Tamara+Hall+Otiotio+Road+Yenagoa+Bayelsa" target="_blank" class="event-map-link">
+                        &#128205; View on Google Maps
+                    </a>
+                </div>
+                <div class="event-card reveal-right">
+                    <div class="event-card-icon">&#127881;</div>
+                    <h3>Reception</h3>
+                    <div class="event-detail-row">
+                        <span class="icon">&#128197;</span>
+                        <span><strong>Date:</strong> Tuesday, August 18, 2026</span>
+                    </div>
+                    <div class="event-detail-row">
+                        <span class="icon">&#128336;</span>
+                        <span><strong>Time:</strong> After Ceremony</span>
+                    </div>
+                    <div class="event-detail-row">
+                        <span class="icon">&#127970;</span>
+                        <span><strong>Venue:</strong> Tamara Hall</span>
+                    </div>
+                    <div class="event-detail-row">
+                        <span class="icon">&#128205;</span>
+                        <span>Otiotio Road, Yenagoa</span>
+                    </div>
+                    <div class="event-detail-row">
+                        <span class="icon"></span>
+                        <span>Bayelsa State, Nigeria</span>
+                    </div>
+                    <div class="event-time-badge">Follows Ceremony</div>
+                    <a href="https://maps.google.com/?q=Tamara+Hall+Otiotio+Road+Yenagoa+Bayelsa" target="_blank" class="event-map-link">
+                        &#128205; View on Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COLOURS ===== -->
+    <section class="colors-section" id="colors">
+        <div class="section-container reveal">
+            <p class="section-label">Our Palette</p>
+            <h2 class="section-title">Colours of the Day</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #6B1D2A;"></div>
+                    <span>Maroon</span>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #8B2020;"></div>
+                    <span>Red</span>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #C9A84C;"></div>
+                    <span>Gold</span>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #FFFFFF; border-color: #e0e0e0;"></div>
+                    <span>White</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-container reveal">
+            <p class="section-label">Memories</p>
+            <h2 class="section-title">Our Gallery</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><span class="gallery-placeholder">Photo 1</span></div>
+                <div class="gallery-item"><span class="gallery-placeholder">Photo 2</span></div>
+                <div class="gallery-item"><span class="gallery-placeholder">Photo 3</span></div>
+                <div class="gallery-item"><span class="gallery-placeholder">Photo 4</span></div>
+                <div class="gallery-item"><span class="gallery-placeholder">Photo 5</span></div>
+                <div class="gallery-item"><span class="gallery-placeholder">Photo 6</span></div>
+            </div>
+            <p class="gallery-note">Replace placeholders with your photos by adding &lt;img src="your-photo.jpg"&gt; inside each gallery item</p>
+        </div>
+    </section>
+
+    <!-- ===== GUEST BOOK ===== -->
+    <section class="guestbook-section" id="guestbook">
+        <div class="section-container reveal">
+            <p class="section-label">Leave a Message</p>
+            <h2 class="section-title">Guest Book</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <div class="guestbook-form">
+                <div class="form-row">
+                    <label for="gbName">Your Name</label>
+                    <input type="text" id="gbName" placeholder="Enter your name">
+                </div>
+                <div class="form-row">
+                    <label for="gbMessage">Your Message</label>
+                    <textarea id="gbMessage" placeholder="Write your wishes for the couple..."></textarea>
+                </div>
+                <button class="guestbook-submit" onclick="addGuestMessage()">Leave a Message</button>
+            </div>
+            <div class="guestbook-messages" id="guestbookMessages">
+                <div class="guestbook-msg">
+                    <div class="msg-name">With Love</div>
+                    <div class="msg-text">"Wishing you both a lifetime of love, laughter, and happiness together. Congratulations!"</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== RSVP ===== -->
+    <section class="rsvp-section" id="rsvp">
+        <div class="section-container reveal">
+            <p class="section-label">Will You Join Us?</p>
+            <h2 class="section-title">RSVP</h2>
+            <div class="section-divider">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+            <div class="rsvp-form" id="rsvpForm">
+                <form onsubmit="handleRSVP(event)">
+                    <div class="form-group">
+                        <label for="guestName">Full Name</label>
+                        <input type="text" id="guestName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guestEmail">Email Address</label>
+                        <input type="email" id="guestEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guestPhone">Phone Number</label>
+                        <input type="tel" id="guestPhone" placeholder="+234...">
+                    </div>
+                    <div class="form-group">
+                        <label>Will You Attend?</label>
+                        <div class="attendance-options">
+                            <div class="attendance-option">
+                                <input type="radio" name="attendance" id="attendYes" value="yes" required>
+                                <label for="attendYes">Joyfully Accepts</label>
+                            </div>
+                            <div class="attendance-option">
+                                <input type="radio" name="attendance" id="attendNo" value="no">
+                                <label for="attendNo">Regretfully Declines</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="guestCount">Number of Guests</label>
+                        <select id="guestCount">
+                            <option value="1">1 Guest</option>
+                            <option value="2" selected>2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5+">5+ Guests</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guestMessage">Message for the Couple</label>
+                        <textarea id="guestMessage" placeholder="Share your wishes..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send RSVP</button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    <div class="checkmark">&#10003;</div>
+                    <h3>Thank You!</h3>
+                    <p>Your RSVP has been received.<br>We can't wait to celebrate with you!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-names">Godspromise & Emomotimi</div>
+        <div class="footer-date">08 . 18 . 2026</div>
+        <div class="footer-heart">&#10084;</div>
+        <p class="footer-text">We can't wait to celebrate our special day with you</p>
+        <p class="footer-made">Made with love</p>
+    </footer>
+
+    <!-- Background Music (add your own audio file) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ===== PRELOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // ===== PARTICLES =====
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                const isSparkle = Math.random() > 0.6;
+                particle.className = 'particle' + (isSparkle ? ' sparkle' : '');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                particle.style.animationDelay = (Math.random() * 15) + 's';
+                const size = (Math.random() * 3 + 1) + 'px';
+                particle.style.width = size;
+                particle.style.height = size;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ===== MUSIC TOGGLE =====
+        const musicToggle = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicToggle.classList.remove('playing');
+            } else {
+                bgMusic.play().catch(() => {});
+                musicToggle.classList.add('playing');
+            }
+            musicPlaying = !musicPlaying;
+        });
+
+        // ===== COUNTDOWN =====
+        function updateCountdown() {
+            const wedding = new Date('August 18, 2026 10:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = wedding - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                document.querySelector('.countdown-message').textContent = 'Today is the day! We are getting married!';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ===== SCROLL REVEAL =====
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 100;
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // ===== NAV DOTS =====
+        const sections = ['hero', 'opening', 'countdown', 'couple', 'story', 'event', 'colors', 'gallery', 'guestbook', 'rsvp'];
+        const dots = document.querySelectorAll('.nav-dot');
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const section = dot.getAttribute('data-section');
+                document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        function updateNavDots() {
+            let current = 'hero';
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= window.innerHeight / 2) {
+                        current = id;
+                    }
+                }
+            });
+            dots.forEach(dot => {
+                dot.classList.toggle('active', dot.getAttribute('data-section') === current);
+            });
+        }
+
+        window.addEventListener('scroll', updateNavDots);
+
+        // ===== RSVP FORM =====
+        function handleRSVP(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('guestName').value,
+                email: document.getElementById('guestEmail').value,
+                phone: document.getElementById('guestPhone').value,
+                attendance: document.querySelector('input[name="attendance"]:checked').value,
+                guests: document.getElementById('guestCount').value,
+                message: document.getElementById('guestMessage').value
+            };
+            console.log('RSVP Submitted:', data);
+            document.querySelector('#rsvpForm form').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+        }
+
+        // ===== GUEST BOOK =====
+        function addGuestMessage() {
+            const name = document.getElementById('gbName').value.trim();
+            const message = document.getElementById('gbMessage').value.trim();
+            if (!name || !message) return;
+
+            const container = document.getElementById('guestbookMessages');
+            const msg = document.createElement('div');
+            msg.className = 'guestbook-msg';
+            msg.innerHTML = `
+                <div class="msg-name">${name}</div>
+                <div class="msg-text">"${message}"</div>
+            `;
+            container.insertBefore(msg, container.firstChild);
+
+            document.getElementById('gbName').value = '';
+            document.getElementById('gbMessage').value = '';
+        }
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+
+<script>
+(function(){
+ const params=new URLSearchParams(location.search);
+ const invitee=params.get('guest')||params.get('name');
+ if(invitee){
+   const d=document.createElement('div');
+   d.id='inviteeBanner';
+   d.style.cssText='margin:20px auto;padding:12px;border:1px solid #C9A84C;color:#fff;background:rgba(0,0,0,.2);max-width:500px;font-family:Montserrat,sans-serif;letter-spacing:2px';
+   d.innerHTML='Special Invitation For<br><strong style="font-size:1.4em">'+invitee.replace(/</g,'&lt;')+'</strong>';
+   document.querySelector('.hero-content').prepend(d);
+ }
+})();
+</script>
+
+</body>
+</html>
