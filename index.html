@@ -1938,8 +1938,10 @@
         setInterval(updateCountdown, 1000);
 
         // ===== RSVP FORM =====
+        <form action="https://formspree.io/f/YOUR_UNIQUE_ID_HERE" method="POST" id="weddingRsvpForm">
+        // ===== RSVP FORM =====
         function handleRSVP(e) {
-            e.preventDefault();
+            // Remove e.preventDefault() so the form actually submits to Formspree
             const data = {
                 name: document.getElementById('guestName').value,
                 email: document.getElementById('guestEmail').value,
@@ -1949,7 +1951,9 @@
                 message: document.getElementById('guestMessage').value
             };
             console.log('RSVP Submitted:', data);
-            document.querySelector('#rsvpForm form').style.display = 'none';
+            
+            // Show success message smoothly
+            document.querySelector('#rsvpForm').style.display = 'none';
             document.getElementById('formSuccess').classList.add('show');
         }
 
