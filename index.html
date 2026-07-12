@@ -1072,7 +1072,7 @@
         .guestbook-msg .msg-text {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
             line-height: 1.5;
         }
@@ -1285,6 +1285,11 @@
             font-size: 1.5rem;
             margin-bottom: 1rem;
             animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @media print {
+            .preloader, .music-toggle, .nav-dots, .scroll-indicator, .rsvp-form, .guestbook-form, .submit-btn { display: none !important; }
+            body { background: white; color: black; }
         }
 
         @keyframes heartbeat {
@@ -1567,7 +1572,7 @@
                 </div>
                 <div class="timeline-item reveal-left">
                     <div class="timeline-content">
-                        <div class="timeline-icon">&#127870;</div>
+                        <div class="timeline-icon">&#127px70;</div>
                         <div class="timeline-date">August 15, 2026</div>
                         <div class="timeline-title">The Wedding</div>
                         <p class="timeline-text">The day we become one. The beginning of our forever. Join us as we say "I Do."</p>
@@ -1739,18 +1744,18 @@
                 <div class="line"></div>
             </div>
             <div class="rsvp-form" id="rsvpForm">
-                <form onsubmit="handleRSVP(event)">
+                <form action="https://formspree.io/f/xgogwbnl" method="POST" onsubmit="handleRSVP(event)">
                     <div class="form-group">
                         <label for="guestName">Full Name</label>
-                        <input type="text" id="guestName" placeholder="Enter your full name" required>
+                        <input type="text" name="name" id="guestName" placeholder="Enter your full name" required>
                     </div>
                     <div class="form-group">
                         <label for="guestEmail">Email Address</label>
-                        <input type="email" id="guestEmail" placeholder="your@email.com" required>
+                        <input type="email" name="_replyto" id="guestEmail" placeholder="your@email.com" required>
                     </div>
                     <div class="form-group">
                         <label for="guestPhone">Phone Number</label>
-                        <input type="tel" id="guestPhone" placeholder="+234...">
+                        <input type="tel" name="phone" id="guestPhone" placeholder="+234...">
                     </div>
                     <div class="form-group">
                         <label>Will You Attend?</label>
@@ -1767,7 +1772,7 @@
                     </div>
                     <div class="form-group">
                         <label for="guestCount">Number of Guests</label>
-                        <select id="guestCount">
+                        <select name="guests" id="guestCount">
                             <option value="1">1 Guest</option>
                             <option value="2" selected>2 Guests</option>
                             <option value="3">3 Guests</option>
@@ -1777,7 +1782,7 @@
                     </div>
                     <div class="form-group">
                         <label for="guestMessage">Message for the Couple</label>
-                        <textarea id="guestMessage" placeholder="Share your wishes..."></textarea>
+                        <textarea name="message" id="guestMessage" placeholder="Share your wishes..."></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Send RSVP</button>
                 </form>
@@ -1938,19 +1943,29 @@
         setInterval(updateCountdown, 1000);
 
         // ===== RSVP FORM =====
-        function handleRSVP(e) {
-            e.preventDefault();
-            const data = {
-                name: document.getElementById('guestName').value,
-                email: document.getElementById('guestEmail').value,
-                phone: document.getElementById('guestPhone').value,
-                attendance: document.querySelector('input[name="attendance"]:checked').value,
-                guests: document.getElementById('guestCount').value,
-                message: document.getElementById('guestMessage').value
-            };
-            console.log('RSVP Submitted:', data);
-            document.querySelector('#rsvpForm form').style.display = 'none';
-            document.getElementById('formSuccess').classList.add('show');
+        function handleRSVP(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+            
+            // Send the form data to Formspree in the background via AJAX fetch
+            fetch(form.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Hide form and smoothly reveal success layout on successful Formspree delivery
+                    form.style.display = 'none';
+                    document.getElementById('formSuccess').classList.add('show');
+                } else {
+                    alert("Oops! There was a problem submitting your RSVP. Please try again.");
+                }
+            }).catch(error => {
+                alert("Oops! There was a connection problem. Please try again.");
+            });
         }
 
         // ===== GUEST BOOK =====
