@@ -1802,11 +1802,44 @@
     </audio>
 
     <script>
-        // ===== PRELOADER =====
+       // ===== MUSIC & PRELOADER CONTROL =====
+        const musicToggle = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        let musicPlaying = false;
+
+        function playAudio() {
+            if (!musicPlaying) {
+                bgMusic.play().then(() => {
+                    musicPlaying = true;
+                    musicToggle.classList.add('playing');
+                }).catch(err => console.log("Autoplay blocked, waiting for user click."));
+            }
+        }
+
+        // Hide preloader and try to play music
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').classList.add('hidden');
+                playAudio();
             }, 1500);
+        });
+
+        // Play music on the very first click/tap anywhere on the screen
+        document.addEventListener('click', () => {
+            playAudio();
+        }, { once: true });
+
+        // Manual toggle button handler
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevents conflict with the document click listener
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicToggle.classList.remove('playing');
+            } else {
+                bgMusic.play().catch(() => {});
+                musicToggle.classList.add('playing');
+            }
+            musicPlaying = !musicPlaying;
         });
 
         // ===== PARTICLES =====
@@ -1826,51 +1859,6 @@
             }
         }
         createParticles();
-
-        // ===== MUSIC TOGGLE =====
-        const musicToggle = document.getElementById('musicToggle');
-        const bgMusic = document.getElementById('bgMusic');
-        let musicPlaying = false;
-
-        musicToggle.addEventListener('click', () => {
-            if (musicPlaying) {
-                bgMusic.pause();
-                musicToggle.classList.remove('playing');
-            } else {
-                bgMusic.play().catch(() => {});
-                musicToggle.classList.add('playing');
-            }
-            musicPlaying = !musicPlaying;
-        });
-
-        // ===== COUNTDOWN =====
-        function updateCountdown() {
-            const wedding = new Date('August 15, 2026 10:00:00').getTime();
-            const now = new Date().getTime();
-            const diff = wedding - now;
-
-            if (diff <= 0) {
-                document.getElementById('days').textContent = '0';
-                document.getElementById('hours').textContent = '0';
-                document.getElementById('minutes').textContent = '0';
-                document.getElementById('seconds').textContent = '0';
-                document.querySelector('.countdown-message').textContent = 'Today is the day! We are getting married!';
-                return;
-            }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
 
         // ===== SCROLL REVEAL =====
         function revealOnScroll() {
