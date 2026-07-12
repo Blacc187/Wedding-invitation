@@ -1905,6 +1905,35 @@
 
         window.addEventListener('scroll', updateNavDots);
 
+        // ===== COUNTDOWN TIMER =====
+        function updateCountdown() {
+            const wedding = new Date('August 15, 2026 10:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = wedding - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                document.querySelector('.countdown-message').textContent = 'Today is the day! We are getting married!';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
         // ===== RSVP FORM =====
         function handleRSVP(e) {
             e.preventDefault();
@@ -1939,6 +1968,30 @@
             document.getElementById('gbName').value = '';
             document.getElementById('gbMessage').value = '';
         }
+
+        // ===== PERSONALIZED INVITATION LOGIC =====
+        function personalizeInvitation() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('guest');
+
+            if (guestName) {
+                const formattedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
+                const greetingBox = document.getElementById('personalizedGreeting');
+                const nameSpan = document.getElementById('guestInvitedName');
+                const rsvpNameInput = document.getElementById('guestName');
+
+                if (greetingBox && nameSpan) {
+                    nameSpan.textContent = formattedName;
+                    greetingBox.style.display = 'block';
+                }
+
+                if (rsvpNameInput) {
+                    rsvpNameInput.value = formattedName;
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', personalizeInvitation);
 
         // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
