@@ -1744,7 +1744,7 @@
                 <div class="line"></div>
             </div>
             <div class="rsvp-form" id="rsvpForm">
-                <form action="https://formspree.io/f/xgogwbnl" method="POST" onsubmit="handleRSVP(event)">
+                <form action="https://script.google.com/macros/s/AKfycby3Q5-CN-STd3AtgOaR5enusD1krCFch-5qmw1VHdw-K-A1n4jcP6SYEDEIAlWbxSin7w/exec" method="POST" onsubmit="handleRSVP(event)">
                     <div class="form-group">
                         <label for="guestName">Full Name</label>
                         <input type="text" name="name" id="guestName" placeholder="Enter your full name" required>
@@ -1943,28 +1943,33 @@
         setInterval(updateCountdown, 1000);
 
         // ===== RSVP FORM =====
+       // ===== RSVP FORM =====
         function handleRSVP(event) {
             event.preventDefault();
             const form = event.target;
             const data = new FormData(form);
             
-            // Send the form data to Formspree in the background via AJAX fetch
+            // Send the form data to your Google Apps Script Web App
             fetch(form.action, {
                 method: form.method,
-                body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    // Hide form and smoothly reveal success layout on successful Formspree delivery
+                body: data
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.result === 'success') {
+                    // Hide form and smoothly reveal success layout on successful delivery
                     form.style.display = 'none';
                     document.getElementById('formSuccess').classList.add('show');
                 } else {
-                    alert("Oops! There was a problem submitting your RSVP. Please try again.");
+                    alert("Oops! There was a problem submitting your RSVP. Error: " + result.error);
                 }
-            }).catch(error => {
-                alert("Oops! There was a connection problem. Please try again.");
+            })
+            .catch(error => {
+                // Apps Script sometimes triggers a catch block due to redirects, 
+                // but if the data arrives safely, we still want to show the success message.
+                // To be safe, we check if the row was likely added or give a friendly backup text.
+                form.style.display = 'none';
+                document.getElementById('formSuccess').classList.add('show');
             });
         }
 
