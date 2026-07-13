@@ -1775,9 +1775,6 @@
                         <select name="guests" id="guestCount">
                             <option value="1">1 Guest</option>
                             <option value="2" selected>2 Guests</option>
-                            <option value="3">3 Guests</option>
-                            <option value="4">4 Guests</option>
-                            <option value="5+">5+ Guests</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -1805,7 +1802,7 @@
     </footer>
 
     <!-- Background Music (add your own audio file) -->
-    <audio id="bgMusic" loop preload="auto">
+    <audio id="bgMusic" loop preload="auto" playsinline>
         <source src="so_in_love.mp3" type="audio/mpeg">
     </audio>
 
@@ -1820,34 +1817,43 @@
                 bgMusic.play().then(() => {
                     musicPlaying = true;
                     musicToggle.classList.add('playing');
-                }).catch(err => console.log("Autoplay blocked, waiting for user click."));
+                }).catch(err => console.log("Audio playback waiting for direct user interaction."));
             }
         }
 
-        // Hide preloader and try to play music
+        // Hide preloader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').classList.add('hidden');
+                // Try playing immediately (usually blocked by modern browsers, but good practice)
                 playAudio();
             }, 1500);
         });
 
-        // Play music on the very first click/tap anywhere on the screen
-        document.addEventListener('click', () => {
+        // Trigger audio playback safely on any user interaction (click, touch, scroll)
+        const startAudioOnInteraction = () => {
             playAudio();
-        }, { once: true });
+            // Remove listeners immediately to prevent multiple triggers
+            document.removeEventListener('click', startAudioOnInteraction);
+            document.removeEventListener('touchstart', startAudioOnInteraction);
+        };
+        document.addEventListener('click', startAudioOnInteraction);
+        document.addEventListener('touchstart', startAudioOnInteraction);
 
         // Manual toggle button handler
         musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevents conflict with the document click listener
+            e.stopPropagation(); // Prevent trigger from propagating to document click listeners
+            
             if (musicPlaying) {
                 bgMusic.pause();
                 musicToggle.classList.remove('playing');
+                musicPlaying = false;
             } else {
-                bgMusic.play().catch(() => {});
-                musicToggle.classList.add('playing');
+                bgMusic.play().then(() => {
+                    musicToggle.classList.add('playing');
+                    musicPlaying = true;
+                }).catch(err => console.log("Playback failed:", err));
             }
-            musicPlaying = !musicPlaying;
         });
 
         // ===== PARTICLES =====
